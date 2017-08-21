@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Raspibot</title>
+	<link href="/static/css/jquery-ui.min.css" rel="stylesheet" integrity="sha384-eQyE3SU5QnAmFMJChco3EHsSBXoiyWLh6F1XSv5BGEiXHhtkgnMC/PTFGtkgHgcg" />
+	<link href="/static/css/jquery-ui.structure.min.css" rel="stylesheet" integrity="sha384-JU8X6doFOKHkY4df5b0KncEU+wc0VUBh/hAzECDT7GCsPgGEKJPfg7IM7nOA3dL+" />
+	<link href="/static/css/jquery-ui.theme.min.css" rel="stylesheet" integrity="sha384-wOyNDXDr0GlVp7ef94+NL/dbSd7XEmHJPn/veZrQD/fCMTg4avnJwncyPK1htT4F" />
+	<script src="/static/js/jquery.min.js" type="text/javascript" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f"></script>
+	<script src="/static/js/jquery-ui.min.js" type="text/javascript" integrity="sha384-10smjgLvrMG0+Lp1jzXvr40EbZG45uB0LFPizOaL24FXk0oXCchNnvDOvP2tnu/E"></script>
+    <script src="https://meet.jit.si/external_api.js" type="text/javascript"></script>
+	<style type="text/css">
+		body {
+			background-color: #1f1f1f;
+		}
+		.menu {
+			width: 200px;
+			float: left;	
+		}
+		.ui-icon-forward { background-image: url("/static/img/up.png") !important;
+			 background-size: 100% 100%;
+			 left: 12px !important;
+			 top: 12px !important;
+			 width: 32px;
+			 height: 32px;
+		 }
+		.ui-icon-left { background-image: url("/static/img/left.png") !important;
+			 background-size: 100% 100%;
+			 left: 12px !important;
+			 top: 12px !important;
+			 width: 32px;
+			 height: 32px;
+		 }
+		.ui-icon-off { background-image: url("/static/img/off.png") !important;
+			 background-size: 100% 100%;
+			 left: 12px !important;
+			 top: 12px !important;
+			 width: 32px;
+			 height: 32px;
+		 }
+		.ui-icon-right { background-image: url("/static/img/right.png") !important;
+			 background-size: 100% 100%;
+			 left: 12px !important;
+			 top: 12px !important;
+			 width: 32px;
+			 height: 32px;
+		 }
+		.ui-icon-turnleft { background-image: url("/static/img/turn_left.png") !important;
+			 background-size: 100% 100%;
+			 left: 12px !important;
+			 top: 12px !important;
+			 width: 32px;
+			 height: 32px;
+		 }
+		.ui-icon-reverse { background-image: url("/static/img/down.png") !important;
+			 background-size: 100% 100%;
+			 left: 12px !important;
+			 top: 12px !important;
+			 width: 32px;
+			 height: 32px;
+		 }
+		.ui-icon-turnright { background-image: url("/static/img/turn_right.png") !important;
+			 background-size: 100% 100%;
+			 left: 12px !important;
+			 top: 12px !important;
+			 width: 32px;
+			 height: 32px;
+		 }
+	</style>
+	<script type="text/javascript">
+		$( function() {
+			var forever = { "duration": -1 };
+			var foreverJSON=JSON.stringify(forever);
+			$("#forward").button({
+				icon: "ui-icon-forward",
+				iconPosition: "end",
+				showLabel: false
+			});
+			$("#forward").click(function(e){
+      			e.preventDefault();
+    			$.ajax({type: "POST",
+						url: "/api/v1/drive/forward",
+            			data: foreverJSON,
+						contentType: "application/json; charset=utf-8",
+    					dataType: "json",
+    			});
+			});
+			$("#left").button({
+				icon: "ui-icon-left",
+				showLabel: false
+			});
+			$("#left").click(function(e){
+      			e.preventDefault();
+    			$.ajax({type: "POST",
+						url: "/api/v1/drive/turnleft",
+            			data: foreverJSON,
+						contentType: "application/json; charset=utf-8",
+    					dataType: "json",
+    			});
+			});
+			$("#stop").button({
+				icon: "ui-icon-off",
+				showLabel: false
+			});
+			$("#stop").click(function(e){
+      			e.preventDefault();
+    			$.ajax({type: "GET",
+						url: "/api/v1/stop"
+    			});
+			});
+			$("#right").button({
+				icon: "ui-icon-right",
+				showLabel: false
+			});
+			$("#right").click(function(e){
+      			e.preventDefault();
+    			$.ajax({type: "POST",
+						url: "/api/v1/drive/turnright",
+            			data: foreverJSON,
+						contentType: "application/json; charset=utf-8",
+    					dataType: "json",
+    			});
+			});
+			$("#camdown").button({
+				icon: "ui-icon-turnleft",
+				showLabel: false
+			});
+			$("#camdown").click(function(e){
+      			e.preventDefault();
+    			$.ajax({type: "POST",
+						url: "/api/v1/camera/down",
+            			data: foreverJSON,
+						contentType: "application/json; charset=utf-8",
+    					dataType: "json",
+    			});
+			});
+			$("#reverse").button({
+				icon: "ui-icon-reverse",
+				showLabel: false
+			});
+			$("#reverse").click(function(e){
+      			e.preventDefault();
+    			$.ajax({type: "POST",
+						url: "/api/v1/drive/reverse",
+            			data: foreverJSON,
+						contentType: "application/json; charset=utf-8",
+    					dataType: "json",
+    			});
+			});
+			$("#camup").button({
+				icon: "ui-icon-turnright",
+				showLabel: false
+			});
+			$("#camup").click(function(e){
+      			e.preventDefault();
+    			$.ajax({type: "POST",
+						url: "/api/v1/camera/up",
+            			data: foreverJSON,
+						contentType: "application/json; charset=utf-8",
+    					dataType: "json",
+    			});
+			});
+			
+			var domain = "meet.ott-consult.de";
+			var options = {
+    			roomName: "RPG",
+    			width: 1024,
+			    height: 800,
+    			parentNode: document.querySelector('#main'),
+				noSSL: false
+			}
+			var api = new JitsiMeetExternalAPI(domain, options);	
+		});
+	</script>
+  </head>
+  <body>
+	<div id ="menu" class="menu">
+	 <table>
+		<tr><td>&nbsp;</td><td><button id="forward">Forward</button></td><td>&nbsp;</td></tr>
+		<tr><td><button id="left">Left</button></td><td><button id="stop">Stop</button></td><td><button id="right">Right</button></td></tr>
+		<tr><td><button id="camdown">Camera down</button></td><td><button id="reverse">Reverse</button></td><td><button id="camup">Camera up</button></td></tr>
+	 </table>
+	
+	</div>
+	<div id="main" class="main">
+		&nbsp;
+	</div>
+  </body>
+</html>
