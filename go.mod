@@ -1,6 +1,7 @@
 module joernott/raspibot
 
 go 1.21
+toolchain go1.23.7
 
 require (
 	github.com/davecgh/go-spew v1.1.1
@@ -9,10 +10,10 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/rakyll/statik v0.1.7
 	github.com/sirupsen/logrus v1.9.3
-	golang.org/x/crypto v0.33.0
+	golang.org/x/crypto v0.36.0
 )
 
 require (
 	github.com/nathan-osman/go-rpigpio v0.0.0-20160701025123-bce6190607da // indirect
-	golang.org/x/sys v0.30.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
 )
