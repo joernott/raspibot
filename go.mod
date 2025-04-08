@@ -1,7 +1,6 @@
 module joernott/raspibot
 
 go 1.21
-toolchain go1.24.1
 
 require (
 	github.com/davecgh/go-spew v1.1.1
